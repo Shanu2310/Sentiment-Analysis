@@ -2,6 +2,8 @@ import re
 import tweepy 
 from tweepy import OAuthHandler 
 from textblob import TextBlob 
+import yaml
+from os import path as path
   
 class TwitterClient(object): 
     ''' 
@@ -33,8 +35,7 @@ class TwitterClient(object):
         Utility function to clean tweet text by removing links, special characters 
         using simple regex statements. 
         '''
-        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) 
-                                    |(\w+:\/\/\S+)", " ", tweet).split()) 
+        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z\t])|(\w+:\/\/\S+)", " ", tweet).split()) 
   
     def get_tweet_sentiment(self, tweet): 
         ''' 
@@ -81,14 +82,25 @@ class TwitterClient(object):
                     tweets.append(parsed_tweet) 
   
             # return parsed tweets 
-            return tweets 
+            return tweets
   
         except tweepy.TweepError as e: 
             # print error (if any) 
             print("Error : " + str(e)) 
-  
-def main(): 
+
+def get_twitter_keys():
+    with open( path.join( path.abspath('.'), 'twitter-secret-keys.yaml' ), 'r') as stream:
+        try:
+            entries = yaml.load_all(stream)
+            for entry in entries:
+                print(entry)
+        except yaml.YAMLError as exc:
+            print(exc)
+                    
+          
+def main():
     # creating object of TwitterClient Class 
+    get_twitter_keys()
     api = TwitterClient() 
     # calling function to get tweets 
     tweets = api.get_tweets(query = 'Donald Trump', count = 200) 
@@ -102,8 +114,7 @@ def main():
     # percentage of negative tweets 
     print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
     # percentage of neutral tweets 
-    print("Neutral tweets percentage: {} % \ 
-        ".format(100*len(tweets - ntweets - ptweets)/len(tweets))) 
+    print("Neutral tweets percentage: {} % \ ".format(100*len(tweets - ntweets - ptweets)/len(tweets))) 
   
     # printing first 5 positive tweets 
     print("\n\nPositive tweets:") 
