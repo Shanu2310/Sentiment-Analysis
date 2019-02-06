@@ -14,10 +14,10 @@ class TwitterClient(object):
         Class constructor or initialization method. 
         '''
         # keys and tokens from the Twitter Dev Console 
-        consumer_key = 'XXXXXXXXXXXXXXXXXXXXXXXX'
-        consumer_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-        access_token = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-        access_token_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXX'
+        consumer_key = 'NUBW6nMYlkglzlmHdr19jURhl'
+        consumer_secret = 'Y1P0bcK6SC4Yd6njrcU8XElt3i2cermtAP4nOVygwg7GlBsQkh'
+        access_token = '1056216217101299712-5qtQCX12PPiu1bp2yqj8HYlfWP080x'
+        access_token_secret = '1IrEnNaazH5KejmTinin6aGK9gRdgVOTeN4HWFf92dWFW    '
   
         # attempt authentication 
         try: 
@@ -88,7 +88,8 @@ class TwitterClient(object):
             # print error (if any) 
             print("Error : " + str(e)) 
 
-def get_twitter_keys():
+
+# def get_twitter_keys():
     with open( path.join( path.abspath('.'), 'twitter-secret-keys.yaml' ), 'r') as stream:
         try:
             entries = yaml.load_all(stream)
