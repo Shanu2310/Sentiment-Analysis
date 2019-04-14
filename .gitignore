@@ -1,5 +1,4 @@
 env
 .vscode
-twitter-secret-keys.yaml
 /.project
 /.pydevproject
