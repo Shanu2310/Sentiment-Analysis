@@ -17,7 +17,7 @@ class TwitterClient(object):
         consumer_key = 'NUBW6nMYlkglzlmHdr19jURhl'
         consumer_secret = 'Y1P0bcK6SC4Yd6njrcU8XElt3i2cermtAP4nOVygwg7GlBsQkh'
         access_token = '1056216217101299712-5qtQCX12PPiu1bp2yqj8HYlfWP080x'
-        access_token_secret = '1IrEnNaazH5KejmTinin6aGK9gRdgVOTeN4HWFf92dWFW    '
+        access_token_secret = '1IrEnNaazH5KejmTinin6aGK9gRdgVOTeN4HWFf92dWFW'
   
         # attempt authentication 
         try: 
@@ -89,7 +89,7 @@ class TwitterClient(object):
             print("Error : " + str(e)) 
 
 
-# def get_twitter_keys():
+def get_twitter_keys():
     with open( path.join( path.abspath('.'), 'twitter-secret-keys.yaml' ), 'r') as stream:
         try:
             entries = yaml.load_all(stream)
@@ -115,7 +115,7 @@ def main():
     # percentage of negative tweets 
     print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
     # percentage of neutral tweets 
-    print("Neutral tweets percentage: {} % \ ".format(100*len(tweets - ntweets - ptweets)/len(tweets))) 
+    print("Neutral tweets percentage: {} %".format(100*len((frozenset(tweets) - frozenset(ntweets)) - frozenset(ptweets))/len(tweets)))
   
     # printing first 5 positive tweets 
     print("\n\nPositive tweets:") 
@@ -125,7 +125,8 @@ def main():
     # printing first 5 negative tweets 
     print("\n\nNegative tweets:") 
     for tweet in ntweets[:10]: 
-        print(tweet['text']) 
+        print(tweet['text'])
+
   
 if __name__ == "__main__": 
     # calling main function 
