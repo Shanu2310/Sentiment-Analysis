@@ -1,6 +1,8 @@
-from src.SentimentAnalysis import TwitterClient
+import SentimentAnalysis as sa
 import yaml
 from os import path as path
+import sys
+from process_excel import save_data
 
 
 def get_twitter_keys():
@@ -12,13 +14,13 @@ def get_twitter_keys():
         except yaml.YAMLError as exc:
             print(exc)
                     
-          
 def main():
     # creating object of TwitterClient Class 
     get_twitter_keys()
-    api = TwitterClient() 
+    api = sa.TwitterClient() 
     # calling function to get tweets 
-    tweets = api.get_tweets(query = 'Donald Trump', count = 200) 
+    print("Enter search term")
+    tweets = api.get_tweets(query = stdin.read(), count = 200) 
   
     # picking positive tweets from tweets 
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
@@ -46,4 +48,5 @@ def main():
   
 if __name__ == "__main__": 
     # calling main function 
-    main() 
+    # main() 
+    save_data("Training Set", {"a":"b", "c":"d"})
