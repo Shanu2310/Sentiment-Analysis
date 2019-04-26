@@ -5,3 +5,4 @@ twitter-secret-keys.yaml
 src/__pycache__/
 .DS_Store
 src/*.pyc
+results.xlsx
