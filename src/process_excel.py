@@ -15,8 +15,8 @@ def save_data(sheet_name, data_hash={}):
     book = create_file()
     sheet = book[sheet_name]
     
-    for key, value in data_hash:
-        row_data = (key, value)
+    for entry in data_hash:
+        row_data = (entry['text'], entry['sentiment'])
         sheet.append(row_data)
     book.save(file_name)
 

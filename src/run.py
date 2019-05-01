@@ -1,13 +1,13 @@
 import SentimentAnalysis as sa
 import sys
-from process_excel import save_data
+from process_excel import *
 
 
 def prepare_classifier_input(tweets_list):
     classifier_input = []
     for tweet in tweets_list:
         if tweet['sentiment'] != "neutral":
-            classifier_tuple = (tweet['text'], tweet['sentiment'])
+            classifier_tuple = (tweet['text'], tweet['sentiment'][:3])
             classifier_input.append(classifier_tuple)
     
     return classifier_input
@@ -21,7 +21,7 @@ def main():
     tweets = api.get_tweets(query = sys.stdin.read(), count = 1000) 
     # saving data to excel file
     save_data("Training Set", tweets)
-
+    # Preparing input list for classifier
     classifier_input_list = prepare_classifier_input(tweets)
   
     # picking positive tweets from tweets 
@@ -39,12 +39,12 @@ def main():
 
     
   
-    # printing first 5 positive tweets 
+    # printing first 10 positive tweets 
     print("\nPositive tweets: ") 
     for tweet in ptweets[:10]: 
         print(tweet['text']) 
   
-    # printing first 5 negative tweets 
+    # printing first 10 negative tweets 
     print("\n\nNegative tweets:") 
     for tweet in ntweets[:10]: 
         print(tweet['text'])
@@ -52,5 +52,5 @@ def main():
   
 if __name__ == "__main__": 
     # calling main function 
-    main() 
-    # save_data("Training Set", {"a":"b", "c":"d"})
+    main()
+    
