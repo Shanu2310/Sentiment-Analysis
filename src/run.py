@@ -1,6 +1,6 @@
 import SentimentAnalysis as sa
 import sys
-from process_excel import save_data
+from process_excel import save_data, del_last_results_file
 from classifier import *
 import nltk
 
@@ -15,6 +15,8 @@ def prepare_classifier_input(tweets_list):
 
 
 def main():
+    # Removing results file from last run
+    del_last_results_file()
     # creating object of TwitterClient Class 
     api = sa.TwitterClient() 
     # calling function to get tweets 
