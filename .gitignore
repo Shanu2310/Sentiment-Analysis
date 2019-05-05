@@ -1,5 +1,5 @@
 env
-.vscode
+.vscode/settings.json
 /.project
 twitter-secret-keys.yaml
 src/__pycache__/
