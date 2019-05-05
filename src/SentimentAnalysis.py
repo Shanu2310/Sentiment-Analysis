@@ -110,3 +110,31 @@ class TwitterClient(object):
         except tweepy.TweepError as e:
             # print error (if any)
             print("Error : " + str(e))
+
+    def get_raw_tweets(self, query, count=10):
+        ''' 
+        Main function to fetch tweets and parse them. 
+        '''
+        # empty list to store parsed tweets
+        tweets = []
+
+        try:
+
+            fetched_tweets = self.api.search(
+                q=query, count=count, tweet_mode='extended')
+
+            # parsing tweets one by one
+            for tweet in fetched_tweets:
+               
+                if tweet.retweet_count > 0:
+                    # if tweet has retweets, ensure that it is appended only once
+                    if tweet not in tweets:
+                        tweets.append(self.clean_tweet(tweet.full_text))
+                else:
+                    tweets.append(self.clean_tweet(tweet.full_text))
+
+            return tweets
+
+        except tweepy.TweepError as e:
+            # print error (if any)
+            print("Error : " + str(e))
