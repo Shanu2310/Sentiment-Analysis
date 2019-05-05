@@ -11,11 +11,11 @@ def create_file():
 
     return book
 
-def save_data(sheet_name, data_hash={}):
+def save_data(sheet_name, data_list=[]):
     book = create_file()
     sheet = book[sheet_name]
     
-    for entry in data_hash:
+    for entry in data_list:
         row_data = (entry['text'], entry['sentiment'])
         sheet.append(row_data)
     book.save(file_name)

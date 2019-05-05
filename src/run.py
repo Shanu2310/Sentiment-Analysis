@@ -1,7 +1,8 @@
 import SentimentAnalysis as sa
 import sys
-from process_excel import *
-
+from process_excel import save_data
+from classifier import *
+import nltk
 
 def prepare_classifier_input(tweets_list):
     classifier_input = []
@@ -23,7 +24,16 @@ def main():
     save_data("Training Set", tweets)
     # Preparing input list for classifier
     classifier_input_list = prepare_classifier_input(tweets)
-  
+    # Training classifier with already fetched tweets
+    # train_classifier(classifier_input_list)
+    # Fetch classifier test data from twitter
+    print("Enter search term for feeding tweets to test classifier: ")
+    test_tweets = api.get_raw_tweets(query = sys.stdin.read(), count = 1000)
+    # Testing classifier
+    classifier_output_list = classify_data(test_tweets, classifier_input_list)
+    save_data("Result Set", classifier_output_list)
+
+    
     # picking positive tweets from tweets 
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
     # percentage of positive tweets 
@@ -52,5 +62,6 @@ def main():
   
 if __name__ == "__main__": 
     # calling main function 
+    nltk.download('punkt')
     main()
     
